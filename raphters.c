@@ -25,7 +25,7 @@ void serve_forever(int listen_socket) {
 	FCGX_Request *request = malloc(sizeof(FCGX_Request));
     FCGX_InitRequest(request, listen_socket, 0);
 	
-    while(FCGI_Accept_r(request) >= 0) {
+    while(FCGX_Accept_r(request) >= 0) {
         dispatch(request);
 		FCGX_Request *request = malloc(sizeof(FCGX_Request));
 		if (!request)	break;
