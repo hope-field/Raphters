@@ -42,14 +42,16 @@ struct response {
     header *header_tail;
     text_segment *segment_head;
     text_segment *segment_tail;
+	FCGX_Request	*request;
 };
 
-response *response_empty() {
+response *response_empty(FCGX_Request	*_request) {
     response *result = malloc(sizeof(response));
     result->header_head = NULL;
     result->header_tail = NULL;
     result->segment_head = NULL;
     result->segment_tail = NULL;
+	result->request = _request;
     return result;
 }
 
@@ -78,10 +80,10 @@ void response_add_header(response *res, const char *name, const char *val) {
     res->header_tail = h;
 }
 
-void response_send(response *res, FCGX_Request* _request) {
+void response_send(response *res) {
     header *cur_h;
     for (cur_h = res->header_head; cur_h != NULL;) {
-        FCGX_FprintF (_request->out, "%s: %s\n", cur_h->name, cur_h->value);
+        FCGX_printf (res->request->out, "%s: %s\n", cur_h->name, cur_h->value);
         free(cur_h->name);
         free(cur_h->value);
         

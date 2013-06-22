@@ -32,6 +32,6 @@ START_HANDLER (default_handler, GET, "", res, 0, matches) {
 int main() {
     add_handler(simple);
     add_handler(default_handler);
-    serve_forever();
+    serve_forever(9000);
     return 0;
 }
