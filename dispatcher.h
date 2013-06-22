@@ -51,7 +51,7 @@ void NAME##_func(regmatch_t MATCHES[]) { \
     response *RES = int_response;
 
 #define END_HANDLER \
-//    response_send(int_response); \
+    response_send(int_response); \
 }
 
 void init_handlers();
