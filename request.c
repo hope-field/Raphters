@@ -20,6 +20,7 @@
 #include "request.h"
 
 #include "stdlib.h"
+#include "fcgiapp.h"
 
 char *get_referer(FCGX_Request* _request) {
     return FCGX_GetParam("HTTP_REFERER", _request->envp);
@@ -34,7 +35,7 @@ char *get_path_info(FCGX_Request* _request) {
 }
 
 char *get_query_string(FCGX_Request* _request) {
-    return FCGX_GetParam("QUERY_STRING"", _request->envp);
+    return FCGX_GetParam("QUERY_STRING", _request->envp);
 }
 
 char *get_remote_addr(FCGX_Request* _request) {
