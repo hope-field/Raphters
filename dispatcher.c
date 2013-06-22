@@ -38,12 +38,12 @@ void dispatch(FCGX_Request* _request) {
     handler *cur;
     char *path_info = get_path_info(_request);
     if (path_info == NULL) {
-        error_handler("NULL path_info");
+        error_handler("NULL path_info", _request);
         return;
     }
     char *method_str = get_method(_request);
     if (method_str == NULL) {
-        error_handler("NULL method_str");
+        error_handler("NULL method_str", _request);
         return;
     }
     int method;
@@ -73,7 +73,7 @@ void dispatch(FCGX_Request* _request) {
             free(matches);
         }
     }
-    error_handler("no match");
+    error_handler("no match", _request);
 }
 
 void add_handler(handler *h) {
