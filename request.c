@@ -21,34 +21,34 @@
 
 #include "stdlib.h"
 
-char *get_referer() {
-    return getenv("HTTP_REFERER");
+char *get_referer(FCGX_Request* _request) {
+    return FCGX_GetParam("HTTP_REFERER", _request->envp);
 }
 
-char *get_user_agent() {
-    return getenv("HTTP_USER_AGENT");
+char *get_user_agent(FCGX_Request* _request) {
+    return FCGX_GetParam("HTTP_USER_AGENT", _request->envp);
 }
 
-char *get_path_info() {
-    return getenv("PATH_INFO");
+char *get_path_info(FCGX_Request* _request) {
+    return FCGX_GetParam("PATH_INFO", _request->envp);
 }
 
-char *get_query_string() {
-    return getenv("QUERY_STRING");
+char *get_query_string(FCGX_Request* _request) {
+    return FCGX_GetParam("QUERY_STRING"", _request->envp);
 }
 
-char *get_remote_addr() {
-    return getenv("REMOTE_ADDR");
+char *get_remote_addr(FCGX_Request* _request) {
+    return FCGX_GetParam("REMOTE_ADDR", _request->envp);
 }
 
-char *get_method() {
-    return getenv("REQUEST_METHOD");
+char *get_method(FCGX_Request* _request) {
+    return FCGX_GetParam("REQUEST_METHOD", _request->envp);
 }
 
-char *get_server_name() {
-    return getenv("SERVER_NAME");
+char *get_server_name(FCGX_Request* _request) {
+    return FCGX_GetParam("SERVER_NAME", _request->envp);
 }
 
-char *get_server_port() {
-    return getenv("SERVER_PORT");
+char *get_server_port(FCGX_Request* _request) {
+    return FCGX_GetParam("SERVER_PORT", _request->envp);
 }

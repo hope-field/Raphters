@@ -19,10 +19,16 @@
 
 #include "raphters.h"
 
-void serve_forever() {
+void serve_forever(int listen_socket) {
     init_handlers();
-    while(FCGI_Accept() >= 0) {
-        dispatch();
-    }
+	
+	FCGX_Request *request = malloc(sizeof(FCGX_Request));
+    FCGX_InitRequest(request, listen_socket, 0);
+	
+    while(FCGI_Accept_r(request) >= 0) {
+        dispatch(request);
+		FCGX_Request *request = malloc(sizeof(FCGX_Request));
+		FCGX_InitRequest(request, listen_socket, 0);
+	}
     cleanup_handlers();
 }

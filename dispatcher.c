@@ -28,20 +28,20 @@
 handler *head = NULL;
 handler *last = NULL;
 
-void default_error_handler(const char *msg) {
-    printf("content-type: text/html\n\nerror: %s\n", msg);
+void default_error_handler(const char *msg, FCGX_Request* _request) {
+    FCGX_printf(_request->out, "content-type: text/html\n\nerror: %s\n", msg);
 }
 
-void (*error_handler)(const char *) = default_error_handler;
+void (*error_handler)(const char *, FCGX_Request*) = default_error_handler;
 
-void dispatch() {
+void dispatch(FCGX_Request* _request) {
     handler *cur;
-    char *path_info = get_path_info();
+    char *path_info = get_path_info(_request);
     if (path_info == NULL) {
         error_handler("NULL path_info");
         return;
     }
-    char *method_str = get_method();
+    char *method_str = get_method(_request);
     if (method_str == NULL) {
         error_handler("NULL method_str");
         return;
@@ -87,6 +87,8 @@ void add_handler(handler *h) {
 
 void init_handlers() {
     handler *cur = head;
+	FCGX_Init();
+	
     while (cur != NULL) {
         if (regcomp(&cur->regex, cur->regex_str, 0) != 0) {
             FAIL_WITH_ERROR("could not compile regex");
