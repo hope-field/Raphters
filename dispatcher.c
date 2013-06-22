@@ -32,7 +32,7 @@ void default_error_handler(const char *msg, FCGX_Request* _request) {
     FCGX_printf(_request->out, "content-type: text/html\n\nerror: %s\n", msg);
 }
 
-void (*error_handler)(const char *, FCGX_Request*) = default_error_handler;
+void (*error_handler)(const char *, FCGX_Request *) = default_error_handler;
 
 void dispatch(FCGX_Request* _request) {
     handler *cur;
@@ -58,7 +58,11 @@ void dispatch(FCGX_Request* _request) {
     } else if (strcmp(method_str, "DELETE") == 0) {
         method = DELETE;
     } else {
+<<<<<<< HEAD
         error_handler("unknown request method", _request);
+=======
+        error_handler("unknown request method",_request);
+>>>>>>> 99bd7f4226135590b9baab7bb7ba613fe7201c1e
         return;
     }
     for (cur = head; cur != NULL; cur = cur->next) {

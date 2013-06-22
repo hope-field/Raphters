@@ -22,6 +22,7 @@
 
 #include "regex.h"
 #include "stdlib.h"
+#include "fcgiapp.h"
 
 #define GET 1
 #define POST 2
@@ -29,7 +30,7 @@
 #define HEAD 4
 #define DELETE 5
 
-extern void (*error_handler)(const char *);
+extern void (*error_handler)(const char *, FCGX_Request*);
 
 struct handler {
     void (*func)(regmatch_t[]);
@@ -56,7 +57,7 @@ void NAME##_func(regmatch_t MATCHES[]) { \
 void init_handlers();
 void cleanup_handlers();
 
-void dispatch();
+void dispatch(FCGX_Request* );
 void add_handler(handler *);
 
 #endif
