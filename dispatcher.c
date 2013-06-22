@@ -29,7 +29,7 @@ handler *head = NULL;
 handler *last = NULL;
 
 void default_error_handler(const char *msg, FCGX_Request* _request) {
-    FCGX_printf(_request->out, "content-type: text/html\n\nerror: %s\n", msg);
+    FCGX_FPrintF(_request->out, "content-type: text/html\n\nerror: %s\n", msg);
 }
 
 void (*error_handler)(const char *, FCGX_Request *) = default_error_handler;
