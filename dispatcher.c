@@ -58,7 +58,7 @@ void dispatch(FCGX_Request* _request) {
     } else if (strcmp(method_str, "DELETE") == 0) {
         method = DELETE;
     } else {
-        error_handler("unknown request method");
+        error_handler("unknown request method", _request);
         return;
     }
     for (cur = head; cur != NULL; cur = cur->next) {
