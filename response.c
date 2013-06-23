@@ -91,15 +91,16 @@ void response_send(response *res) {
         free(cur_h);
         cur_h = next;
     }
-    FCGX_FPrintF(_request->out, "\n");
+    FCGX_printf(res->_request->out, "\n");
     text_segment *cur_s;
     for (cur_s = res->segment_head; cur_s != NULL;) {
-        FCGX_FPrintF(_request->out, "%s", cur_s->text);
+        FCGX_printf(res->_request->out, "%s", cur_s->text);
         free(cur_s->text);
         
         text_segment *next = cur_s->next;
         free(cur_s);
         cur_s = next;
     }
+	free(res->request);
     free(res);
 }

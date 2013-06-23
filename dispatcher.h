@@ -33,7 +33,7 @@
 extern void (*error_handler)(const char *, FCGX_Request*);
 
 struct handler {
-    void (*func)(regmatch_t[]);
+    void (*func)(regmatch_t[], FCGX_Request*);
     int method;
     const char *regex_str;
     regex_t regex;
@@ -46,8 +46,8 @@ typedef struct handler handler;
 void NAME##_func(); \
 handler NAME##_data = {NAME##_func, METHOD, REGEX, {0}, NUM, NULL}; \
 handler *NAME = &NAME##_data; \
-void NAME##_func(regmatch_t MATCHES[]) { \
-    response *int_response = response_empty(); \
+void NAME##_func(regmatch_t MATCHES[], FCGX_Request *_request) { \
+    response *int_response = response_empty(_request); \
     response *RES = int_response;
 
 #define END_HANDLER \
