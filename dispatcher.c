@@ -66,7 +66,7 @@ void dispatch(FCGX_Request* _request) {
             regmatch_t *matches = malloc(sizeof(regmatch_t) * cur->nmatch);
             int m = regexec(&cur->regex, path_info, cur->nmatch, matches, 0);
             if (m == 0) {
-                cur->func(matches);
+                cur->func(matches, _request);
                 free(matches);
                 return;
             }
