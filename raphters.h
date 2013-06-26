@@ -24,6 +24,6 @@
 #include "response.h"
 #include "request.h"
 
-void serve_forever(int listen_socket);
+void serve_forever(const char* path);
 
 #endif

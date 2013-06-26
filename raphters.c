@@ -19,8 +19,10 @@
 
 #include "raphters.h"
 
-void serve_forever(int listen_socket) {
-    init_handlers();
+void serve_forever(const char* path) {
+    int listen_socket = -1;
+	init_handlers();
+	listen_socket = FCGX_OpenSocket(path, 400);
 	
 	FCGX_Request *request = malloc(sizeof(FCGX_Request));
     FCGX_InitRequest(request, listen_socket, 0);
