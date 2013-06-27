@@ -101,6 +101,7 @@ void response_send(response *res) {
         free(cur_s);
         cur_s = next;
     }
+	FCGX_Finish_r(res->request);
 	free(res->request);
     free(res);
 }
