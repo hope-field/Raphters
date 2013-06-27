@@ -83,7 +83,7 @@ void response_add_header(response *res, const char *name, const char *val) {
 void response_send(response *res) {
     header *cur_h;
     for (cur_h = res->header_head; cur_h != NULL;) {
-        FCGX_printf (res->request->out, "%s: %s\n", cur_h->name, cur_h->value);
+        FCGX_FPrintF (res->request->out, "%s: %s\n", cur_h->name, cur_h->value);
         free(cur_h->name);
         free(cur_h->value);
         
@@ -91,10 +91,10 @@ void response_send(response *res) {
         free(cur_h);
         cur_h = next;
     }
-    FCGX_printf(res->_request->out, "\n");
+    FCGX_FPrintF(res->request->out, "\n");
     text_segment *cur_s;
     for (cur_s = res->segment_head; cur_s != NULL;) {
-        FCGX_printf(res->_request->out, "%s", cur_s->text);
+        FCGX_FPrintF(res->request->out, "%s", cur_s->text);
         free(cur_s->text);
         
         text_segment *next = cur_s->next;
